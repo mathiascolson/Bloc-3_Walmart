@@ -4,7 +4,7 @@
 
 La prévision des ventes constitue un enjeu majeur pour les enseignes de distribution. Une estimation fiable des ventes futures permet notamment d'améliorer la gestion des stocks, l'organisation logistique et la planification commerciale.
 
-Dans ce projet, l'objectif est de prédire les ventes hebdomadaires de magasins Walmart à partir de variables économiques, calendaires et propres aux magasins.
+Dans ce projet, l'objectif est de prédire les ventes hebdomadaires de magasins Walmart à partir de variables économiques, calendaires et d’une variable d’identification du magasin..
 
 L'étude s'appuie sur un dataset historique contenant des informations relatives à plusieurs magasins Walmart ainsi que différents indicateurs susceptibles d'influencer les ventes.
 
@@ -106,16 +106,21 @@ Aucune variable ne présente de corrélation très forte avec les ventes hebdoma
 
 Cela suggère que les ventes dépendent probablement de plusieurs facteurs combinés plutôt que d'une seule variable dominante.
 
-### Influence du magasin
+### Effet magasin
 
-Le magasin apparaît comme le facteur explicatif le plus important du dataset.
+Les niveaux moyens de ventes diffèrent fortement d’un magasin à l’autre.
 
-Les niveaux moyens de ventes diffèrent fortement d'un magasin à l'autre, probablement en raison de caractéristiques non présentes dans les données :
+La variable Store permet donc de mettre en évidence un fort effet magasin. En revanche, elle ne constitue pas une explication directe : elle indique uniquement de quel magasin il s’agit.
 
-* taille du magasin ;
-* localisation ;
-* zone de chalandise ;
-* fréquentation.
+Autrement dit, le modèle peut apprendre que certains magasins vendent structurellement plus que d’autres, mais il ne permet pas d’expliquer précisément pourquoi.
+
+Ces écarts peuvent être liés à des facteurs absents du dataset, comme :
+
+la surface du magasin ;
+la localisation ;
+la fréquentation ;
+les promotions ;
+la concurrence locale.
 
 ### Saisonnalité
 
@@ -240,6 +245,14 @@ Après nettoyage, le dataset contient seulement un peu plus d'une centaine d'obs
 
 Cette taille limitée réduit la capacité du modèle à apprendre des relations complexes.
 
+### Interprétation de la variable Store
+
+La variable Store améliore la capacité du modèle à différencier les magasins, mais elle reste un proxy.
+
+Elle ne décrit pas les caractéristiques réelles des magasins et ne permet donc pas d’identifier les causes des écarts de ventes observés.
+
+Pour interpréter plus finement ces différences, il faudrait disposer de variables complémentaires comme la surface commerciale, la localisation, la fréquentation, les promotions ou la concurrence locale.
+
 ### Faible nombre d'observations par magasin
 
 Certains magasins disposent de très peu d'observations, ce qui limite la robustesse des analyses spécifiques à chaque magasin.
@@ -304,6 +317,6 @@ Ce projet met en œuvre l'ensemble des étapes classiques d'un workflow de Machi
 * évaluation ;
 * sélection du modèle final.
 
-L'analyse met en évidence l'importance de la saisonnalité et des caractéristiques propres aux magasins dans l'explication des ventes hebdomadaires.
+L’analyse met en évidence une saisonnalité marquée ainsi qu’un fort effet magasin capté par la variable Store. Toutefois, Store doit être interprétée avec prudence : elle permet de distinguer les magasins, mais elle n’explique pas directement les causes des écarts de ventes observés..
 
 Parmi les modèles évalués, le Lasso optimisé par validation croisée apparaît comme le meilleur compromis entre performance, simplicité et robustesse.
